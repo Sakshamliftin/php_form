@@ -1,0 +1,74 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.container {
+  max-width: 80%;
+  backdrop-filter: blur(5px);
+  margin: auto;
+  padding: 20px;
+  /* color: aliceblue; */
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid black;
+  padding-top: 100px;
+  /* margin-bottom: 50px; */
+}
+.title .sub-title {
+  color: aliceblue;
+  text-align: center;
+}
+.title {
+  font-family: "Playwrite CU", cursive;
+}
+input {
+  margin: 11px;
+  padding: 5px;
+  border-radius: 5px;
+  outline: none;
+  width: 70%;
+  background-color: #f0eded;
+}
+button {
+  margin-top: 20px;
+  width: 30%;
+}
+textarea {
+  height: 150px;
+  overflow: scroll;
+  width: 70%;
+  padding: 5px;
+  background-color: #f0eded;
+}
+.carousel-item {
+  height: 400px;
+}
+.visually-hidden {
+  color: black;
+}
+
+.places {
+  /* margin-top: 100px; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(33, 32, 32);
+  padding: 50px;
+  margin-bottom: 0px;
+}
+.card {
+  background-color: black;
+  color: white;
+  padding: 5px;
+  margin: 7px;
+}
+.copyright {
+  background-color: rgb(33, 32, 32);
+  color: white;
+  text-align: center;
+}

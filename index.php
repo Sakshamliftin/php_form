@@ -1,37 +1,28 @@
 <?php
+require 'db.php';
+
 $insert = false;
-if (isset($_POST['name'])) {
 
-  $server = "localhost";
-  $username = "root";
-  $password = "";
-  $dbname = "trip"; // Ensure this matches the actual database name
-  $port = 3307; // Specify the custom port number
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-  // Establish connection with the specified port
-  $con = mysqli_connect($server, $username, $password, $dbname, $port);
+    $sql = "INSERT INTO trip (name, age, gender, email, phone, other)
+            VALUES (:name, :age, :gender, :email, :phone, :other)";
 
-  if (!$con) {
-    die("connection to database failed due to " . mysqli_connect_error());
-  }
+    $stmt = $pdo->prepare($sql);
 
-  $name = $_POST['name'];
-  $gender  = $_POST['gender'];
-  $age  = $_POST['age'];
-  $email = $_POST['email'];
-  $phone = $_POST['number'];
-  $other = $_POST['desc'];
+    $stmt->execute([
+        ':name'   => $_POST['name'],
+        ':age'    => $_POST['age'],
+        ':gender' => $_POST['gender'],
+        ':email'  => $_POST['email'],
+        ':phone'  => $_POST['number'],
+        ':other'  => $_POST['desc']
+    ]);
 
-  $sql = "INSERT INTO `trip` (`name`, `age`, `gender`, `email`, `phone`, `other`, `dt`) VALUES ('$name', '$age', '$gender', '$email', '$phone', '$other', current_timestamp());";
-
-  if ($con->query($sql) == true) {
-    $insert = true;  // Set insert flag to true
-  } else {
-    echo "ERROR: $sql <br> $con->error";
-  }
-  $con->close();
+    $insert = true;
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -104,5 +95,6 @@ if (isset($_POST['name'])) {
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 
 </html>

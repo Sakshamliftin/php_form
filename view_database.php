@@ -1,17 +1,11 @@
 <?php
-// Database connection details
-$host = getenv('DB_HOST');
-$db   = getenv('DB_NAME');
-$user = getenv('DB_USER');
-$pass = getenv('DB_PASSWORD');
-$port = getenv('DB_PORT') ?: 3306;
+require 'db.php';
 
-$conn = new mysqli($host, $user, $pass, $db, $port);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+$sql = "SELECT * FROM trip ORDER BY sno DESC";
+$stmt = $pdo->query($sql);
+$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
+
 
 
 // Create connection
@@ -56,27 +50,26 @@ $result = $con->query($sql);
         </tr>
       </thead>
       <tbody>
-        <?php
-        // Check if there are rows in the result
-        if ($result->num_rows > 0) {
-          // Loop through the rows and display data
-          while ($row = $result->fetch_assoc()) {
-            echo "<tr>
-                                <td>{$row['sno']}</td>
-                                <td>{$row['name']}</td>
-                                <td>{$row['age']}</td>
-                                <td>{$row['gender']}</td>
-                                <td>{$row['email']}</td>
-                                <td>{$row['phone']}</td>
-                                <td>{$row['other']}</td>
-                                <td>{$row['dt']}</td>
-                              </tr>";
-          }
-        } else {
-          echo "<tr><td colspan='8'>No records found</td></tr>";
-        }
-        ?>
-      </tbody>
+<?php if (count($rows) > 0): ?>
+    <?php foreach ($rows as $row): ?>
+        <tr>
+            <td><?= htmlspecialchars($row['sno']) ?></td>
+            <td><?= htmlspecialchars($row['name']) ?></td>
+            <td><?= htmlspecialchars($row['age']) ?></td>
+            <td><?= htmlspecialchars($row['gender']) ?></td>
+            <td><?= htmlspecialchars($row['email']) ?></td>
+            <td><?= htmlspecialchars($row['phone']) ?></td>
+            <td><?= htmlspecialchars($row['other']) ?></td>
+            <td><?= htmlspecialchars($row['dt']) ?></td>
+        </tr>
+    <?php endforeach; ?>
+<?php else: ?>
+    <tr>
+        <td colspan="8">No records found</td>
+    </tr>
+<?php endif; ?>
+</tbody>
+
     </table>
   </div>
 
@@ -92,3 +85,4 @@ $result = $con->query($sql);
 $con->close();
 
 ?>
+

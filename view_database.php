@@ -1,10 +1,18 @@
 <?php
 // Database connection details
-$server = "localhost";
-$username = "root";
-$password = "";
-$dbname = "trip"; // Your database name
-$port = 3307; // Port number
+$host = getenv('DB_HOST');
+$db   = getenv('DB_NAME');
+$user = getenv('DB_USER');
+$pass = getenv('DB_PASSWORD');
+$port = getenv('DB_PORT') ?: 3306;
+
+$conn = new mysqli($host, $user, $pass, $db, $port);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+?>
+
 
 // Create connection
 $con = mysqli_connect($server, $username, $password, $dbname, $port);
@@ -82,4 +90,5 @@ $result = $con->query($sql);
 <?php
 // Close the connection
 $con->close();
+
 ?>
